@@ -10,7 +10,7 @@ else
 fi
 vc_guestiso='/Applications/VirtualBox.app/Contents/MacOS/VBoxGuestAdditions.iso'
 vc_vboxbase="${HOME}/VirtualBox VMs"
-vc_basebox="vagrant-centos-${1}"
+vc_basebox="vagrant-centos${1}"
 vc_hddbase="${vc_vboxbase}/${vc_basebox}/${vc_basebox}"
 vc_hddfile="${vc_hddbase}.vdi"
 
