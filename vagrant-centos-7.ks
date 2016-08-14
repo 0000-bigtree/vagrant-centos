@@ -8,12 +8,12 @@ rootpw vagrant
 firewall --disabled
 auth --enableshadow --passalgo=sha512
 selinux --disabled
-timezone UTC --isUtc --nontp
+timezone --isUtc Asia/Shanghai
 ignoredisk --only-use=sda
 bootloader --append=" crashkernel=auto" --location=mbr --boot-drive=sda
 autopart --type=lvm
 clearpart --none --initlabel
-user --name=vagrant --groups=wheel --password=vagrant
+user --name=vagrant --groups=vagrant --password=vagrant
 firstboot --enable
 services --disabled="chronyd"
 poweroff --eject
@@ -33,22 +33,22 @@ cp /etc/resolv.conf /mnt/sysimage/etc/resolv.conf
 
 %post
 /usr/bin/yum -y install sudo gcc "kernel-devel-$(uname -r)" make perl bzip2
-/bin/cat << EOF > /etc/sudoers.d/wheel
-Defaults:%wheel env_keep += "SSH_AUTH_SOCK"
-Defaults:%wheel !requiretty
-%wheel ALL=(ALL) NOPASSWD: ALL
+/bin/cat << EOF > /etc/sudoers.d/vagrant
+Defaults:%vagrant env_keep += "SSH_AUTH_SOCK"
+Defaults:%vagrant !requiretty
+%vagrant ALL=(ALL) NOPASSWD: ALL
 EOF
-/bin/chmod 0440 /etc/sudoers.d/wheel
+/bin/chmod 0440 /etc/sudoers.d/vagrant
 /bin/mkdir /mnt/vbox
 /bin/mount -t iso9660 /dev/sr1 /mnt/vbox
 /mnt/vbox/VBoxLinuxAdditions.run
 /bin/umount /mnt/vbox
 /bin/rmdir /mnt/vbox
-/bin/rpm -i https://yum.puppetlabs.com/puppetlabs-release-pc1-el-7.noarch.rpm
-/usr/bin/yum -y install puppet-agent
-/bin/rpm -i https://opscode-omnibus-packages.s3.amazonaws.com/el/7/x86_64/chef-12.6.0-1.el7.x86_64.rpm
-/bin/rpm -i https://dl.fedoraproject.org/pub/epel/epel-release-latest-7.noarch.rpm
-/usr/bin/yum -y install ansible
+# /bin/rpm -i https://yum.puppetlabs.com/puppetlabs-release-pc1-el-7.noarch.rpm
+# /usr/bin/yum -y install puppet-agent
+# /bin/rpm -i https://opscode-omnibus-packages.s3.amazonaws.com/el/7/x86_64/chef-12.6.0-1.el7.x86_64.rpm
+# /bin/rpm -i https://dl.fedoraproject.org/pub/epel/epel-release-latest-7.noarch.rpm
+# /usr/bin/yum -y install ansible
 /bin/rpm -e epel-release
 /bin/mkdir /home/vagrant/.ssh
 /bin/chmod 700 /home/vagrant/.ssh
