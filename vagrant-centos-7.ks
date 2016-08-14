@@ -3,7 +3,7 @@ cdrom
 lang en_US.UTF-8
 keyboard --vckeymap=us --xlayouts='us'
 network  --bootproto=dhcp --device=enp0s3 --noipv6 --activate
-network  --hostname=vagrant-centos-7.vagrantup.com
+network  --hostname=centos7.vagrantup.com
 rootpw vagrant
 firewall --disabled
 auth --enableshadow --passalgo=sha512
@@ -57,7 +57,7 @@ EOF
 /bin/chown -R vagrant:vagrant /home/vagrant/.ssh
 /bin/chmod 0600 /home/vagrant/.ssh/*
 /bin/echo 'UseDNS no' >> /etc/ssh/sshd_config
-/bin/echo '127.0.0.1   vagrant-centos-7.vagrantup.com' >> /etc/hosts
+/bin/echo '127.0.0.1   centos7.vagrantup.com' >> /etc/hosts
 /usr/bin/yum -y clean all
 /sbin/swapoff -a
 /sbin/mkswap /dev/mapper/centos_vagrant--centos--7-swap
