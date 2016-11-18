@@ -27,7 +27,7 @@ VBoxManage -v &> /dev/null || { echo "ERROR: VBoxManage not in path!"; exit 1; }
 VBoxManage createvm --name "$vc_basebox" --register
 VBoxManage modifyvm "$vc_basebox" --ostype RedHat_64 --memory 512 --vram 16 --audio null --rtcuseutc on --ioapic on --largepages off --paravirtprovider legacy --boot1 disk --boot2 dvd --boot3 none --boot4 none --pae off --nic1 nat --cableconnected1 on --nictype1 82540EM
 VBoxManage storagectl "$vc_basebox" --name SATAController --add sata --portcount 1
-VBoxManage createhd --filename "$vc_hddfile" --size 40960
+VBoxManage createhd --filename "$vc_hddfile" --size 61440
 VBoxManage storageattach "$vc_basebox" --storagectl SATAController --port 0 --type hdd --medium "$vc_hddfile"
 VBoxManage storagectl "$vc_basebox" --name IDEController --add ide
 VBoxManage storageattach "$vc_basebox" --storagectl IDEController --device 0 --port 0 --type dvddrive --medium "$vc_osiso"
